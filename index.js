@@ -49,12 +49,13 @@ class Person {
     this.age = age
     this.stomach = []
   }
-  eat(){
+  eat(food){
     if(this.stomach.length < 10){
       this.stomach.push(food)}
     }
   poop(){
-    this.stomach = []
+    return this.stomach = []
+    
   }
   toString(){
     return `${this.name}, ${this.age}`
@@ -86,8 +87,15 @@ class Car {
     this.tank = gallons + this.tank
   }
   drive(distance){
-    this.odometer = this.odometer + distance;
-    
+   const drivableMiles = this.tank * this.milesPerGallon 
+   if(distance <= drivableMiles){
+   this.odometer = this.odometer + distance;
+   this.tank = this.tank - (distance / this.milesPerGallon)
+  }else{
+    this.odometer = this.odometer + drivableMiles;
+    this.tank = 0
+    return `I ran out of fuel at ${this.odometer} miles!`
+  }
   }
 }
 
@@ -105,10 +113,10 @@ class Car {
 */
 
 class Lambdasian {
-  constructor (object){
-this.name = object.name
-this.age = object.age
-this.location = object.location
+  constructor ({name, age, location}){
+this.name = name
+this.age = age
+this.location = location
   }
 speak(){
   return `Hello my name is ${this.name}, I am from ${this.location}`
@@ -131,11 +139,11 @@ speak(){
 */
 
 class Instructor extends Lambdasian{
-  constructor (object){
-  super(object);
-  this.specialty = object.specialty;
-  this.favLanguage = object.favLanguage;
-  this.catchPhrase = object.catchPhrase;
+  constructor ({name, age, location, specialty,favLanguage,catchPhrase}){
+  super({name, age, location, specialty,favLanguage,catchPhrase});
+  this.specialty = specialty;
+  this.favLanguage = favLanguage;
+  this.catchPhrase = catchPhrase;
 }
 demo(subject){
   return `Today we are learning about ${subject}`
@@ -162,20 +170,20 @@ grade(student, subject){
 */
 
 class Student extends Lambdasian {
-   constructor(object){
-super(object)
-this.previousBackground = object.previousBackground
-this.className = object.className
-this.favSubjects = object.favSubjects
+   constructor({name, age, location, previousBackground ,className, favSubjects}){
+super({name, age, location, previousBackground ,className, favSubjects})
+this.previousBackground = previousBackground
+this.className = className
+this.favSubjects = favSubjects
    }
    listSubjects(){
-    return toString(this.favSubjects)
+   return `${this.favSubjects}`
    }
    PRAssignment(subject){
-return `${student.name} has submitted a PR for ${subject}`
+return `${this.name} has submitted a PR for ${subject}`
    }
    sprintChallenge(subject){
-    returns `${this.student.name} has begun sprint challenge on ${this.subject}`
+    return `${this.name} has begun sprint challenge on ${subject}`
    }
 }
 
@@ -194,16 +202,16 @@ return `${student.name} has submitted a PR for ${subject}`
 */
 
 class ProjectManager extends Instructor{
-  constructor(object){
-  super(object)
-this.gradClassName = object.gradClassName
-this.favInstructor = object.favInstructor
+  constructor({name, age, location, gradClassName, favInstructor, specialty,favLanguage,catchPhrase}){
+  super({name, age, location, gradClassName, favInstructor, specialty,favLanguage,catchPhrase})
+this.gradClassName = gradClassName
+this.favInstructor = favInstructor
   }
-standup(channel){
-  `${this.name} announces to ${this.channel}, @channel standy times!`
+standUp(channel){
+  return `${this.name} announces to ${channel}, @channel standy times!`
 }
 debugsCode(student,subject){
-  `${this.name} debugs ${student.name}'s code on ${subject}`
+  return `${this.name} debugs ${student.name}'s code on ${subject}`
 }
 }
 
